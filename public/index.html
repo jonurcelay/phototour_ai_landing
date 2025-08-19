@@ -4,20 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Photo Tour AI</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-    .container { max-width: 800px; margin: auto; }
-    img { max-width: 100%; height: auto; }
-    .button { background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; font-size: 18px; }
+    body { font-family: 'Poppins', sans-serif; }
+    .hero-bg { background: linear-gradient(135deg, #04a8e8, #d0f2ff); }
+    .screenshot { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); border-radius: 15px; }
+    .cta-button { background-color: #6fc573; transition: transform 0.3s ease; }
+    .cta-button:hover { transform: scale(1.05); }
+    .logo { max-width: 150px; margin: 0 auto 20px; }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Photo Tour AI</h1>
-    <p>Take a photo and get an audio tour guide description powered by AI!</p>
-    <img src="assets/Start_page.png" alt="App Screenshot">
-    <p>Available on Android</p>
-    <a href="YOUR_PLAY_STORE_LINK" class="button">Download on Google Play</a>
-  </div>
+<body class="bg-white">
+  <!-- Hero Section -->
+  <section class="hero-bg text-white py-20">
+    <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+      <img src="assets/phototour-ai-logo.png" alt="Photo Tour AI Logo" class="logo" data-aos="zoom-in">
+      <h1 class="text-5xl md:text-6xl font-bold mb-4">Photo Tour AI</h1>
+      <p class="text-xl md:text-2xl mb-8">Explore as you will</p>
+      <a href="YOUR_PLAY_STORE_LINK" class="cta-button inline-block text-black font-semibold py-3 px-6 rounded-lg text-lg">Download on Google Play</a>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section class="py-16 bg-d0f2ff">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-04a8e8" data-aos="fade-up">Let your curiosity expand your knowledge</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div class="text-center" data-aos="fade-right">
+          <img src="assets/Start_page.png" alt="Screenshot 1" class="screenshot mx-auto mb-4 w-3/4 md:w-2/3">
+          <p class="text-lg text-04a8e8">Start a new Photo Tour</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+          <img src="assets/Cam_page.png" alt="Screenshot 2" class="screenshot mx-auto mb-4 w-3/4 md:w-2/3">
+          <p class="text-lg text-04a8e8">Capture your point of interest</p>
+        </div>
+        <div class="text-center" data-aos="fade-left" data-aos-delay="200">
+          <img src="assets/Speak_page.png" alt="Screenshot 3" class="screenshot mx-auto mb-4 w-3/4 md:w-2/3">
+          <p class="text-lg text-04a8e8">Listen to your AI tourist guide</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-04a8e8 text-white">
+    <div class="container mx-auto px-4 text-center" data-aos="zoom-in">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Explore?</h2>
+      <p class="text-lg mb-8">Download Photo Tour AI now and turn every photo into an adventure!</p>
+      <a href="YOUR_PLAY_STORE_LINK" class="cta-button inline-block text-black font-semibold py-3 px-6 rounded-lg text-lg">Get it on Google Play</a>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+  </script>
 </body>
 </html>
