@@ -82,23 +82,43 @@
 
 <body class="bg-white">
 
-  <script>
-    document.addEventListener('click', function() {
-      const video = document.querySelector('video');
+  <!-- Hero Section -->
+<section class="hero-bg py-6">
+  <div class="container mx-auto flex flex-col justify-center items-center">
+    <video autoplay muted loop playsinline 
+      class="w-full full-w-md rounded-lg" 
+      poster="assets/video-poster.jpg" 
+      preload="metadata">
+      <source src="assets/tourist-guide-ai-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+
+<script>
+  // Fix autoplay on iOS & modern Chrome
+  document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('video');
+    
+    // Critical: playsinline + muted + poster
+    video.muted = true;
+    video.playsInline = true;
+
+    // Start playing (even if silent)
+    video.play().catch(() => {
+      // If autoplay fails, show poster + play button overlay
+      video.style.background = '#000 url("assets/video-poster.jpg") center/cover';
+      video.controls = true;
+    });
+
+    // Unmute + full play on first tap/click
+    document.body.addEventListener('click', function unmute() {
       video.muted = false;
       video.play();
+      document.body.removeEventListener('click', unmute);
     }, { once: true });
-  </script>
-  
-  <!-- Hero Section -->
-  <section class="hero-bg py-6">
-    <div class="container mx-auto flex flex-col justify-center items-center ">
-      <video autoplay muted loop class="w-full full-w-md rounded-lg" data-aos="zoom-in">
-        <source src="assets/tourist-guide-ai-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </section>
+  });
+</script>
 
   <!-- Showcase Section Map-->
   <section class="py-2 md:pt-4">
