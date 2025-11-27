@@ -94,42 +94,42 @@
 <body class="bg-white">
 
   <!-- Hero Section -->
-<section class="hero-bg py-6">
-  <div class="container mx-auto flex flex-col justify-center items-center">
-    <video autoplay muted loop playsinline 
-      class="w-full full-w-md rounded-lg" 
-      poster="assets/tourist-guide-ai-preview.webp" 
-      preload="metadata">
-      <source src="assets/tourist-guide-ai-video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</section>
+  <section class="hero-bg py-6">
+    <div class="container mx-auto flex flex-col justify-center items-center">
+      <video autoplay muted loop playsinline 
+        class="w-full full-w-md rounded-lg" 
+        poster="assets/tourist-guide-ai-preview.webp" 
+        preload="metadata">
+        <source src="assets/tourist-guide-ai-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
 
-<script>
-  // Fix autoplay on iOS & modern Chrome
-  document.addEventListener('DOMContentLoaded', function() {
-    const video = document.querySelector('video');
-    
-    // Critical: playsinline + muted + poster
-    video.muted = true;
-    video.playsInline = true;
+  <script>
+    // Fix autoplay on iOS & modern Chrome
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('video');
+      
+      // Critical: playsinline + muted + poster
+      video.muted = true;
+      video.playsInline = true;
 
-    // Start playing (even if silent)
-    video.play().catch(() => {
-      // If autoplay fails, show poster + play button overlay
-      video.style.background = '#000 url("assets/tourist-guide-ai-preview.webp"") center/cover';
-      video.controls = true;
+      // Start playing (even if silent)
+      video.play().catch(() => {
+        // If autoplay fails, show poster + play button overlay
+        video.style.background = '#000 url("assets/tourist-guide-ai-preview.webp"") center/cover';
+        video.controls = true;
+      });
+
+      // Unmute + full play on first tap/click
+      document.body.addEventListener('click', function unmute() {
+        video.muted = false;
+        video.play();
+        document.body.removeEventListener('click', unmute);
+      }, { once: true });
     });
-
-    // Unmute + full play on first tap/click
-    document.body.addEventListener('click', function unmute() {
-      video.muted = false;
-      video.play();
-      document.body.removeEventListener('click', unmute);
-    }, { once: true });
-  });
-</script>
+  </script>
 
   <!-- Showcase Section Map-->
   <section class="py-2 md:pt-4">
@@ -226,21 +226,33 @@
       <h2 class="text-3xl font-bold mb-4">Ready to Explore?</h2>
       <p class="text-lg mb-8">Download Tourist Guide AI now!</p>
       <div class="flex flex-col md:flex-row justify-center gap-4 mx-auto">
-      <a href="https://play.google.com/store/apps/details?id=com.phototour.ai" class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform">
-        <img src="assets/playstore_logo.webp" alt="Android Logo" class="w-10 h-10 mr-4">
-        <div class="flex flex-col text-left">
-          <span class="text-sm">Get it on</span>
-          <span class="text-xl font-semibold">Google Play</span>
-        </div>
-      </a>
-      <a href="https://apps.apple.com/us/app/tourist-guide-ai/id6751420818" class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform">
-        <img src="assets/apple_logo_white.webp" alt="Apple Logo" class="w-12 h-12 mr-4 mb-1">
-        <div class="flex flex-col text-left">
-          <span class="text-sm">Get it on the</span>
-          <span class="text-xl font-semibold">App Store</span>
-        </div>
-      </a>
-    </div>
+        <a href="https://play.google.com/store/apps/details?id=com.phototour.ai"
+        class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform"
+        onclick="gtag('event', 'store_click', {
+          'store': 'google_play',
+          'location': 'cta_section',
+          'button_text': 'Google Play'
+        });">
+          <img src="assets/playstore_logo.webp" alt="Android Logo" class="w-10 h-10 mr-4">
+          <div class="flex flex-col text-left">
+            <span class="text-sm">Get it on</span>
+            <span class="text-xl font-semibold">Google Play</span>
+          </div>
+        </a>
+        <a href="https://apps.apple.com/us/app/tourist-guide-ai/id6751420818"
+        class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform"
+        onclick="gtag('event', 'store_click', {
+          'store': 'app_store',
+          'location': 'cta_section',
+          'button_text': 'App Store'
+        });">
+          <img src="assets/apple_logo_white.webp" alt="Apple Logo" class="w-12 h-12 mr-4 mb-1">
+          <div class="flex flex-col text-left">
+            <span class="text-sm">Get it on the</span>
+            <span class="text-xl font-semibold">App Store</span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
