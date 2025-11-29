@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8">
@@ -54,9 +54,13 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    html {
+      scroll-behavior: smooth !important;
+    }
     body { font-family: 'Poppins', sans-serif; }
     .hero-bg { background: #d0f2ff}
     .content-bg { background: #eafaff} 
+    .logo-text { color:#6fc573; }
     .cta-button { background-color: #6fc573; transition: transform 0.3s ease; }
     .cta-button:hover { transform: scale(1.05); }
     .logo { max-width: 40px;}
@@ -79,31 +83,165 @@
 </script>
 
 
+<!-- JS for hamburger -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamIcon = document.getElementById('ham-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    // Toggle menu open/close
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent triggering document click
+      mobileMenu.classList.toggle('hidden');
+      hamIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    // Close menu when clicking any link (so it actually navigates!)
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        hamIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+
+    // Close when clicking outside the menu
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+        hamIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+
+    // Prevent menu from closing when clicking inside it
+    mobileMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+  });
+</script>
+
+
 
 <body class="bg-white">
 
-    <!-- Hero Section -->
-    <section class="hero-bg py-4">
-        <div class="container px-4 flex justify-center items-center ">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
-                <div class="flex justify-center md:justify-end items-center">
-                    <a href="../index.html">
-                        <img src="../assets/touristguide-ai-logo.webp" alt="Tourist Guide AI Logo" class="logo md:mr-2">
-                    </a>
-                </div>
-                <div class="flex justify-center md:justify-start items-center">
-                    <div class="text-left">
-                        <h1 class="text-xl md:text-3xl font-bold" style="color: #6fc573">Tourist Guide AI</h1>
-                    </div>
-                </div>
-            </div>
+    <!-- --------- Top Bar Section -> JS for hamburger ------------------- -->
+    <div class="fixed top-0 left-0 right-0 z-50 bg-white ">
+        <div class="container mx-auto px-4 py-3 flex flex-row justify-between items-center text-center sm:text-left text-sm md:text-base">
+        
+        <!-- Left side -->
+        <div class="flex gap-3">
+
+            <a href="../index.html" class="hover:scale-105 flex items-center text-xl md:text-xl font-bold transition-all gap-4 logo-text">
+            <img 
+                src="../assets/touristguide-ai-logo.webp" 
+                alt="Tourist Guide AI Logo" 
+                class="w-8 h-8 md:w-10 md:h-10 object-contain"
+            > Tourist Guide AI
+            </a>
+
         </div>
-    </section>
+
+        <!-- Right side LAPTOP – CTA buttons -->
+        <div class="hidden md:flex gap-3">
+
+            <!-- Text link - HOW IT WORKS – smooth scroll -->
+            <a href="../index.html" 
+            class="hover:text-green-500 hover:scale-105 hover:font-bold font-semibold px-3 py-2
+                    transition-all duration-300 whitespace-nowrap flex items-center gap-4">
+            HOW IT WORKS
+            </a>
+
+            <!-- Text link - REVIEWS – smooth scroll -->
+            <a href="../index.html" 
+            class="hover:text-green-500 hover:scale-105 hover:font-bold font-semibold px-6 py-2
+                    transition-all duration-300 whitespace-nowrap flex items-center gap-4">
+            REVIEWS
+            </a>
+
+            <!-- Text link - BLOG – smooth scroll -->
+            <a href="../blog.html" 
+            class="hover:text-green-500 hover:scale-105 hover:font-bold font-semibold px-6 py-2
+                    transition-all duration-300 whitespace-nowrap flex items-center gap-4">
+            BLOG
+            </a>
+
+            <!-- CTA button - Android -->
+            <a href="https://play.google.com/store/apps/details?id=com.phototour.ai"
+            target="_blank" 
+            rel="noopener"
+            onclick="gtag('event','store_click',{'store':'google_play','location':'top_bar'});"
+            class="cta-button text-white px-5 py-2 rounded-lg hover:scale-105 transition flex items-center gap-1 font-bold">
+            <img src="../assets/playstore_logo.webp" alt="Android" class="w-5 h-5"> Android
+            </a>
+
+            <!-- CTA button - iOS -->
+            <a href="https://apps.apple.com/us/app/tourist-guide-ai/id6751420818"
+            target="_blank" 
+            rel="noopener"
+            onclick="gtag('event','store_click',{'store':'app_store','location':'top_bar'});"
+            class="cta-button text-white px-5 py-2 rounded-lg hover:scale-105 transition flex items-center gap-1 font-bold">
+            <img src="../assets/apple_logo_white.webp" alt="iOS" class="w-6 h-6 mb-1"> iOS
+            </a>
+
+        </div>
+
+        <!-- Right side MOBILE - Hamburger Menu -->
+        <button id="hamburger" class="z-50 md:hidden text-black text-3xl focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="ham-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M4 6h16M4 12h16M4 18h16"/>
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        </div>
+    </div>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="z-40 fixed left-0 right-0 top-10 bg-white hidden md:hidden flex-col items-center justify-center space-y-5 text-l px-10 py-10">
+        
+        <a href="../index.html" class="block text-black hover:text-green-500 hover:scale-105 hover:font-bold font-semibold transition-all">HOW IT WORKS</a>
+
+        <a href="../index.html" class="block text-black hover:text-green-500 hover:scale-105 hover:font-bold font-semibold transition-all">REVIEWS</a>
+
+        <a href="../blog.html" class="block text-black hover:text-green-500 hover:scale-105 hover:font-bold font-semibold transition-all">BLOG</a>
+
+        <div class="flex flex-row justify-left items-center gap-4">
+
+            <a href="https://play.google.com/store/apps/details?id=com.phototour.ai" target="_blank" rel="noopener"
+            onclick="gtag('event','store_click',{'store':'google_play','location':'top_bar'});"
+            class="cta-button text-white px-5 py-2 rounded-lg hover:scale-105 transition flex items-center gap-2 font-bold">
+            <img src="../assets/playstore_logo.webp" alt="Android" class="w-5 h-5"> Android
+            </a>
+
+            <a href="https://apps.apple.com/us/app/tourist-guide-ai/id6751420818" target="_blank" rel="noopener"
+            onclick="gtag('event','store_click',{'store':'app_store','location':'top_bar'});"
+            class="cta-button text-white px-7 py-2 rounded-lg hover:scale-105 transition flex items-center gap-2 font-bold">
+            <img src="../assets/apple_logo_white.webp" alt="iOS" class="w-5 h-5"> iOS
+            </a>
+
+        </div>
+        
+        
+
+    </div>
 
     <!-- --------------------------------------------- -->
 
+
+
+
+
+
+
     <!-- Content -->
-    <section class="content-bg py-10">
+    <section class="content-bg py-10 pt-28">
         <div class="container px-7 mx-auto mb-6">
         <h1 class="text-4xl md:text-5xl font-bold mb-4 text-left" style="color: #6fc573">The Future of Tourism: Travel Trends for 2025 and Beyond</h1>
         <p class="text-lg md:text-xl mb-8 text-left" style="color: #04a8e8">Tourism has transformed dramatically over the past two decades, and 2025 marks a pivotal moment with AI, sustainability, and immersive tech shaping the journey. With Tourist Guide AI, explore how travel has evolved, what it looks like now, and what’s coming next. Ready for the future? Check our <a href="/solo-travel-guide.html" class="text-blue-500 hover:underline">Solo Travel Guide</a> and <a href="/cheap-travel-guide-app.html" class="text-blue-500 hover:underline">Cheap Travel Guide</a> for more inspiration!</p>
@@ -217,41 +355,140 @@
     </section>
 
 
-    <!-- --------------------------------------------- -->
 
+
+
+
+
+    <!-- ----------------------------------------------------- -->
     <!-- Call To Action (CTA) Section -->
-    <section class=" py-10 md:py-10 text-white" style="background-color: #04a8e8">
+    <section id="download" class="py-20 text-white" style="background-color: #04a8e8">
         <div class="container mx-auto px-7 text-center">
-            <h2 class="text-3xl font-bold mb-4">Ready to Explore?</h2>
-            <p class="text-lg mb-8">Download Tourist Guide AI now!</p>
-            <div class="flex flex-col md:flex-row justify-center gap-4 mx-auto">
-            <a href="https://play.google.com/store/apps/details?id=com.phototour.ai" class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform">
-                <img src="../assets/playstore_logo.webp" alt="Android Logo" class="w-10 h-10 mr-4">
-                <div class="flex flex-col text-left">
+        <h2 class="text-4xl md:text-5xl mb-4">Ready to Explore The World?</h2>
+        <p class="text-xl md:text-2xl mb-8">Download Tourist Guide AI now!</p>
+
+        <div class="flex flex-col md:flex-row justify-center gap-4 mx-auto">
+
+            <a href="https://play.google.com/store/apps/details?id=com.phototour.ai"
+            target="_blank" 
+            rel="noopener"
+            class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform"
+            onclick="gtag('event', 'store_click', {
+                'store': 'google_play',
+                'location': 'cta_section',
+                'button_text': 'Google Play'
+            });">
+            <img src="../assets/playstore_logo.webp" alt="Android Logo" class="w-10 h-10 mr-4">
+            <div class="flex flex-col text-left">
                 <span class="text-sm">Get it on</span>
                 <span class="text-xl font-semibold">Google Play</span>
-                </div>
+            </div>
             </a>
-            <a href="https://apps.apple.com/us/app/tourist-guide-ai/id6751420818" class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform">
-                <img src="../assets/apple_logo_white.webp" alt="Apple Logo" class="w-12 h-12 mr-4 mb-1">
-                <div class="flex flex-col text-left">
+
+            <a href="https://apps.apple.com/us/app/tourist-guide-ai/id6751420818"
+            target="_blank" 
+            rel="noopener"
+            class="cta-button inline-flex items-center bg-green-500 text-white p-6 rounded-lg hover:scale-105 transition-transform"
+            onclick="gtag('event', 'store_click', {
+                'store': 'app_store',
+                'location': 'cta_section',
+                'button_text': 'App Store'
+            });">
+            <img src="../assets/apple_logo_white.webp" alt="Apple Logo" class="w-12 h-12 mr-4 mb-1">
+            <div class="flex flex-col text-left">
                 <span class="text-sm">Get it on the</span>
                 <span class="text-xl font-semibold">App Store</span>
-                </div>
-            </a>
             </div>
+            </a>
+            
+        </div>
         </div>
     </section>
 
     <!-- Footer Section -->
-    <footer class="py-8 bg-white text-center">
-        <div class="container mx-auto px-4">
-        <p class="text-sm">
-            <a href="../index.html" class="footer-link mx-2">Tourist Guide AI</a> |
-            <a href="../blog.html" class="footer-link mx-2">Travel Blog</a> |
-            <a href="../privacy-policy.html" class="footer-link mx-2">Privacy Policy</a> |
-            <a href="../delete-account.html" class="footer-link mx-2">Delete Account</a>
-        </p>
+    <footer class="bg-gray-50 px-5 md:px-20 py-12">
+        <div class="container mx-auto px-6 max-w-7xl text-l">
+
+        <!-- 4 Columns Grid (1 column mobile) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+
+            <!-- Column 1 – Brand -->
+            <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+                Tourist Guide AI®<br>Application
+            </h3>
+            </div>
+
+            <!-- Column 2 – Product -->
+            <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Product</h3>
+            <ul class="space-y-3 text-gray-600">
+                <li><a href="../index.html" class="hover:underline transition-all">How It Works?</a></li>
+                <li><a href="../index.html" class="hover:underline transition-all">Reviews</a></li>
+                <li><a href="#download" class="hover:underline transition-all">Get the App</a></li>
+                <li><a href="../faq.html" class="hover:underline transition-all">FAQ's</a></li>
+            </ul>
+            </div>
+
+            <!-- Column 3 – Connect -->
+            <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Connect</h3>
+            <ul class="space-y-3 text-gray-600">
+                <li><a href="../privacy-policy.html" class="hover:underline transition-all">Contact Us</a></li>
+                <li><a href="../privacy-policy.html" class="hover:underline transition-all">Privacy Policy</a></li>
+                <li><a href="../terms-of-use.html" class="hover:underline transition-all">Terms of Use</a></li>
+            </ul>
+            </div>
+
+            <!-- Column 4 – Social Media -->
+            <div>
+            <ul class="space-y-3 text-gray-900">
+                <li>
+                <a href="https://www.tiktok.com/@touristguideai"
+                    target="_blank"
+                    class="text-lg font-bold underline hover:scale-105 transition-all">
+                    TikTok
+                </a>
+                </li>
+
+                <li>
+                <a href="https://www.instagram.com/tourist_guide_ai/"
+                    target="_blank"
+                    class="text-lg font-bold underline hover:scale-105 transition-all">
+                    Instagram
+                </a>
+                </li>
+
+                <li>
+                <a href="https://youtube.com/@touristguideai" 
+                    target="_blank" 
+                    class="text-lg font-bold underline hover:scale-105 transition-all">
+                    YouTube
+                </a>
+                </li>
+
+                <li>
+                <a href="https://www.facebook.com/profile.php?id=61584499587798&sk=about" 
+                    target="_blank" 
+                    class="text-lg font-bold underline hover:scale-105 transition-all">
+                    Facebook
+                </a>
+                </li>
+
+            </ul>
+
+            </div>
+
+        </div>
+
+        <!-- Horizontal Line -->
+        <hr class="my-10 border-gray-300">
+
+        <!-- Copyright -->
+        <div class="text-left text-gray-600 text-sm">
+            © 2025 Tourist Guide AI. All Rights Reserved
+        </div>
+
         </div>
     </footer>
 
